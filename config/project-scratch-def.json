@@ -1,7 +1,8 @@
 {
     "orgName": "Org to test the Community Bot",
     "edition": "Developer",
+    "features": "Communities",
     "orgPreferences" : {
-        "enabled": ["S1DesktopEnabled"]
+        "enabled": ["S1DesktopEnabled","IsLiveAgentEnabled","IsKnowledgeEnabled","NetworksEnabled"]
     }
 }
