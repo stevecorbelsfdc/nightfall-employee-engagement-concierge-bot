@@ -1,0 +1,25 @@
+<aura:component >
+    <aura:attribute name="text" type="String"/>
+    <aura:attribute name="from" type="String"/>
+    <aura:attribute name="link" type="String"/>
+    <aura:attribute name="id" type="String"/>
+        <aura:attribute name="avatar" type="String"/>
+    <aura:attribute name="component" type="String"/>
+    <aura:attribute name="popupdetailid" type="String"/>
+            <aura:attribute name="SmallPhotoUrl" type="String"/>
+      <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <div class="message">
+        
+              <div class="{!v.from}">
+                <aura:if isTrue="{!v.from == 'fromThem'}">
+                    
+                <lightning:avatar size="medium" src="{!v.avatar}"/></aura:if>
+                  <a  id="{!v.id}" onclick="{!c.showDetail}">{!v.link}</a><p/>
+             <aura:unescapedHtml value="{!v.text}"></aura:unescapedHtml>
+                 {!v.body}
+              </div>
+            
+            
+            </div>
+    
+</aura:component>

@@ -1,0 +1,16 @@
+<aura:component >
+    <aura:attribute name="messages" type="Object[]"/>
+    <aura:attribute name="popupdetailid" type="String"/>
+    <aura:attribute name="SmallPhotoUrl" type="String"/>
+    
+    <aura:handler event="aura:doneRendering" action="{!c.scrollDown}"/>
+    <div class="messages" aura:id ="messages" id="adobewordpress">
+      
+        <aura:iteration items="{!v.messages}" var="message">
+            
+            <c:chatmessage avatar="{!message.avatar}" SmallPhotoUrl="{!v.SmallPhotoUrl}" id="{!message.id}" popupdetailid="{!v.popupdetailid}" text="{!message.text}" from="{!message.from}" link="{!message.link}" component="{!message.component}" ></c:chatmessage>
+            
+        </aura:iteration>
+    </div>
+    
+</aura:component>

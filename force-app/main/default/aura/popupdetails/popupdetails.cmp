@@ -1,0 +1,68 @@
+<aura:component controller="SDM_ChatbotController" access="global">
+    <ltng:require styles="{!$Resource.fontawesome}"/>
+    <aura:attribute name='sfrecordid' type="String" access="global" default=''></aura:attribute>
+    <aura:attribute name='sfrecord' type="Object"/>
+    <aura:attribute name='shopitem' type="Object"/>
+    <aura:attribute name='sftype' type='String' />
+    <aura:attribute name='viewedfrom' type='String' />
+    <aura:handler name="init" value="{!this}" action="{!c.doInitNew}"/>
+    <aura:handler name="change" value="{!v.sfrecordid}" action="{!c.doUpdate}"/>
+  
+  
+<aura:if isTrue="{!v.sftype == 'Recommendation__c' || v.sftype == 'shopitem__c'}">
+    <div class="slds-grid slds-grid--align-spread">
+    <div class="slds-text-heading--large slds-m-vertical--large">{!v.sfrecord.Name__c}</div>  
+    <div class="slds-col">
+        <div class="order-buttons" data-sku="{!v.shopitem.sku__c}">
+       <lightning:button label="Add to Cart"></lightning:button>
+        </div>
+    </div>
+    </div>
+
+<div class="slds-media slds-media--center">
+  <div class="slds-media__figure">
+      <div class="slds-text-heading--medium slds-m-vertical--large">{!v.sfrecord.specialoffer__c}</div>  
+     <img src="{!v.sfrecord.Image__c}"></img> </div>
+  
+  <div class="slds-media__body">
+    <p>{!v.sfrecord.Description__c}</p>
+  </div>
+</div>
+    
+    
+    
+    </aura:if>
+    <aura:if isTrue="{!v.sftype == 'Case'}">
+    <force:recordView recordId="{!v.sfrecordid}"/>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.sftype == 'Cirrus__kav' || v.sftype == 'FAQ__kav' || v.sftype == 'Recipe__kav'}">
+        <div class="slds-grid slds-grid--align-spread">
+        <div class="slds-text-heading--large slds-m-vertical--large">{!v.sfrecord.Title}</div>
+          <div class="slds-col"><p>Did this help you?</p>
+              <span class="fa-stack fa-lg">
+  <i class="fa fa-circle fa-3 fa-stack-2x"></i>
+  <i onclick="{!c.upvote}" class="fa fa-thumbs-up fa-3 fa-stack-1x fa-inverse amheregreen" aria-hidden="true"></i>
+</span>
+         <span class="fa-stack fa-lg">
+  <i class="fa fa-circle fa-3 fa-stack-2x"></i>
+  <i onclick="{!c.downvote}" class="fa fa-thumbs-down fa-3 fa-stack-1x fa-inverse amherered" aria-hidden="true"></i>
+</span>   
+            
+
+                        
+        </div>
+      </div>
+        <aura:unescapedHtml value="{!v.sfrecord.Answer__c}"/>
+        <aura:unescapedHtml value="{!v.sfrecord.Details__c}"/>
+            <aura:unescapedHtml value="{!v.sfrecord.Product_Informatie__c}"/>
+        <aura:unescapedHtml value="{!v.sfrecord.Recipe__c}"/>
+    
+    </aura:if>
+    
+    
+
+    
+    
+    
+</aura:component>

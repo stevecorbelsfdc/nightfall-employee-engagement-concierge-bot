@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Number_of_Article_Views__c</fullName>
+    <externalId>false</externalId>
+    <label>Number of Article Views</label>
+    <summaryFilterItems>
+        <field>kwebsitepage_track__c.UseType__c</field>
+        <operation>equals</operation>
+        <value>ViewArticle</value>
+    </summaryFilterItems>
+    <summaryForeignKey>kwebsitepage_track__c.kwebsitepage__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

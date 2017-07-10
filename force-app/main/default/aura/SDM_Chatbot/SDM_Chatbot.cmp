@@ -1,0 +1,146 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="SDM_ChatbotController" >
+    
+    <aura:attribute name="isArticle" type="Boolean"/>
+    <aura:attribute name="isProduct" type="Boolean"/>
+    <aura:attribute name="messages" type="Object[]"/>
+    <aura:attribute name="popupdetailid" type="String" default="500B0000002WeR5IAK"/>
+    <aura:attribute name="messloaded" type="Boolean" default="false"/>
+    <aura:attribute name="lasessionid" type="Object"/>
+    <aura:attribute name="sequence" type="Integer" default="1"/>
+    <aura:attribute name="waiting" type="Boolean" default="false"/>
+    <aura:attribute name="inLA" type="Boolean" default="false"/>
+        <aura:attribute name="prechat" type="Boolean" default="false"/>
+    <aura:attribute name="offerChat" type="Boolean" default="false"/>
+    <aura:attribute name="SmallPhotoUrl" type="String" default="https://sdm-springfsl--c.gus.content.force.com/profilephoto/729B00000009CBL/T"/>
+    <aura:method name="showMod" action="{!c.showMod}"/>
+    <aura:handler name="change" value="{!v.popupdetailid}" action="{!c.showMod}"/>
+    <aura:handler name="change" value="{!v.messloaded}" action="{!c.scrollDown}"/>  
+    <ltng:require styles="{!$Resource.sdm_chatbot_css}"
+                  scripts="{!join(',', 
+                           
+                           $Resource.sdm_jquery224, 
+                           $Resource.sdm_html2canvas, 
+                           $Resource.sdm_chatbot_js,
+                           
+                           $Resource.KBChatEngine
+                           
+                           )}"
+                  
+                  
+                  afterScriptsLoaded="{!c.doInit}" />
+    
+    
+    
+    <div class="slds-docked_container chatwindowbody">
+        <div aura:id="chatbotwindow" class="slds-docked-composer slds-grid slds-grid--vertical" role="dialog" aria-labelledby="panel-heading-01">
+            <div class="slds-docked-composer__header slds-grid slds-shrink-none" onclick="{!c.toggleChatbot}">
+                <div class="slds-media slds-media--center">
+                    <div class="slds-media__figure slds-m-right--x-small">
+                        <lightning:icon size="small" iconName="utility:answer"></lightning:icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 id="panel-heading-01">How can we help?</h2>
+                    </div>
+                </div>
+                <div class="slds-col--bump-left">
+                    <!--
+            <lightning:ButtonIcon variant="bare" size="small" iconName="utility:minimize_window" alternativeText="minimize" onclick="{!c.toggleChatbot}"/>
+          <span class="slds-assistive-text">Minimize Composer Panel</span>
+       
+       
+          <lightning:Buttonicon variant="bare" size="small" iconName="utility:expand_alt" alternativeText="Expand"/>
+          <span class="slds-assistive-text">Expand Composer Panel</span>
+       
+        
+        <lightning:Buttonicon variant="bare" size="small" iconName="utility:close" alternativeText="Close" onclick="{!c.toggleChatbot}"/>
+          <span class="slds-assistive-text">Close Composer Panel</span>
+-->
+                </div>
+            </div>
+            <div class="slds-docked-composer__body chatwindowbody">
+                
+                <div class="border">
+                    <form aura:id="chatform" class="chat toggle" action="javascript:void(0);">
+                        <span></span>
+                        <c:messages messages="{!v.messages}" SmallPhotoUrl="{!v.SmallPhotoUrl}" popupdetailid="{!v.popupdetailid}"></c:messages>
+                        
+                        <!-- <input type="submit" value="Send"/> -->
+                        <input id="humanInput" type="text" placeholder="Your message"/>
+                    </form>
+                    
+                </div>
+                
+                
+                
+                
+                
+            </div>
+            <footer class="slds-docked-composer__footer slds-shrink-none">
+                <div class="slds-col">
+                    
+                </div>
+                <aura:if isTrue="{!v.offerChat == true &amp;&amp; v.inLA == false}">
+                    <div class="slds-col--bump-left slds-text-align--right">
+                        <lightning:button variant="brand" label="Chat with Agent" iconName="utility:chat" onclick="{!c.startChat}"></lightning:button>
+                    </div>
+                </aura:if>
+            </footer>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    <div aria-hidden="true" role="dialog" class="slds-modal slds-modal--large slds-fade-in-hide" aura:id="modaldialog">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" variant="inverse" onclick="{!c.hideModal}"/>
+                <aura:if isTrue="{!v.isArticle}">
+                    <h2 class="slds-text-heading--medium">{!v.prodinfoarticle.Title}</h2>
+                </aura:if>
+                <aura:if isTrue="{!v.isProduct}">
+                    <h2 class="slds-text-heading--medium">{!v.prodinfoarticle.name}</h2>
+                </aura:if>
+                
+                
+                
+            </div>
+            
+            
+            <div class="slds-modal__content slds-p-around--medium">
+                <div>
+                    <p> 
+                        <!--	<force:recordView record="{!v.prodinfoarticle}"/> -->
+                        <c:popupdetails sfrecordid="{!v.popupdetailid}" viewedfrom="livechatagent"></c:popupdetails>
+                        
+                    </p>  
+                </div>
+            </div>
+            
+            <div class="slds-modal__footer">
+                <div class="slds-x-small-buttons--horizontal">
+                    <button class="slds-button slds-button--neutral" onclick="{!c.hideModal}">Cancel</button>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <div class="slds-backdrop slds-backdrop--hide" aura:id="backdrop">
+    </div>
+    
+    <!--
+<style type='text/css'>
+.embeddedServiceLiveAgentChatButton .helpButton .uiButton { background-color: #005290; font-family: "Salesforce Sans", sans-serif; }
+.embeddedServiceLiveAgentChatButton .helpButton .uiButton:focus {outline: 2px solid #005290}
+@font-face {
+font-family: 'Salesforce Sans';
+src: url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Regular.woff') format('woff'),
+url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Regular.ttf') format('truetype');
+}
+</style>
+-->
+    
+    {!v.body}
+    
+</aura:component>

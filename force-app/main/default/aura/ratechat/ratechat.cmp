@@ -1,0 +1,29 @@
+<aura:component >
+    <aura:attribute name="rated" type="Boolean" default="false"/>
+    <aura:if isTrue="{!v.rated == false}">
+    <lightning:layout >
+    <lightning:layoutitem >
+        <lightning:button variant="base"  class="lovebutton" onclick="{!c.rating}"><img src="{!$Resource.sdm_reactions + '/love.png'}"></img></lightning:button>
+            
+        </lightning:layoutitem>
+            <lightning:layoutitem >
+        <lightning:button variant="base"  class="likebutton" onclick="{!c.rating}"><img src="{!$Resource.sdm_reactions + '/like.png'}"></img></lightning:button>
+        
+        </lightning:layoutitem>
+    <lightning:layoutitem >
+        <lightning:button variant="base"  class="sadbutton" onclick="{!c.rating}"><img src="{!$Resource.sdm_reactions + '/sad.png'}"></img></lightning:button>
+        
+        </lightning:layoutitem>
+    <lightning:layoutitem >
+        <lightning:button variant="base"  class="angrybutton" onclick="{!c.rating}"><img src="{!$Resource.sdm_reactions + '/angry.png'}"></img></lightning:button>
+        
+        </lightning:layoutitem>
+
+	</lightning:layout>
+        <aura:set attribute="else">
+
+	     <h2>Thanks for your feedback!</h2>
+
+	    </aura:set>
+        </aura:if>
+</aura:component>

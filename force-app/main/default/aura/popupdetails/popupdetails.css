@@ -1,0 +1,43 @@
+.THIS .amheregreen:hover {
+    transform:  scale(1.2);
+    color: lawngreen; 
+    
+}
+
+.THIS .amheregreen {
+    transition: transform 200ms ease-in-out 0ms, box-shadow ease-in-out, color ease-in-out;
+    transition-property: transform, box-shadow, color;
+    transition-duration: 200ms, initial;
+    transition-timing-function: ease-in-out, ease-in-out;
+    transition-delay: 0ms, initial;
+    
+}
+
+.THIS .amherered:hover {
+    transform:  scale(1.2);
+    color: red; 
+    
+}
+
+.THIS .amherered {
+    transition: transform 200ms ease-in-out 0ms, box-shadow ease-in-out, color ease-in-out;
+    transition-property: transform, box-shadow, color;
+    transition-duration: 200ms, initial;
+    transition-timing-function: ease-in-out, ease-in-out;
+    transition-delay: 0ms, initial;
+    
+}
+
+
+.THIS .spin-example {
+    transition: transform 200ms ease-in-out 0ms, box-shadow ease-in-out;
+    transition-property: transform, box-shadow;
+    transition-duration: 200ms, initial;
+    transition-timing-function: ease-in-out, ease-in-out;
+    transition-delay: 0ms, initial;
+    
+}
+  .THIS .spin-example:hover {
+    transform:  scale(1.1) rotate(180deg);
+    
+}
